@@ -13,4 +13,7 @@ spec:
       containers:
       - name: nginx
         image: nginx
+#kubectl delete rc --cascade=false <rc_name>  ...{it just delete the rc but pod remains in running condition}
+        
+        
 
