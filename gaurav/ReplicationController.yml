@@ -13,7 +13,12 @@ spec:
       containers:
       - name: nginx
         image: nginx
-#kubectl delete rc --cascade=false <rc_name>  ...{it just delete the rc but pod remains in running condition}
+# kubectl delete rc --cascade=false <rc_name>  ...{it just delete the rc but pod remains in running condition}
+# kubectl scale rc --replicas=5 firstreplica   ...{to scale up and scale down replica  or number of pods}
+# kubectl edit rc firstreplica                 ...{another way to scale up/down}
+# vi ReplicationController.yml
+  write the number of replica required
+# kubectl replace -f ReplicationController.yml  
         
         
 
