@@ -1,0 +1,33 @@
+#first create vi service.yml
+apiVersion: v1
+kind: Service
+metadata:
+  name: firstservice
+spec:
+  type: NodePort
+  ports:
+    - nodePort: 32000 
+      port: 9000
+      targetPort: 80   (#if any request coming from nodeport 32000 it will redirect it to service port 9000 then service port transfer it to pod port 80 where your application is running)
+  selector:
+    type : app
+########################################
+kubectl apply -f service.yml
+kubectl describe svc firstservice (get all about services information)
+########################################
+#create 2 pod(vi pod1.yml)
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod1   #name of pod(create same pod having name pod2 )
+  labels:
+     env: testing    #what label should attach to that pod
+     env1: dev
+spec:               #pod contains what? at least contain a container
+  containers:
+  - name: nginx         #name of container
+    image: nginx:1.14.2      #container imamge
+##############################################
+kubectl apply -f pod1.yml
+kubectl label pods --all type=app (#attach label of service selector type =app)
+kubectl port-forward svc/firstpod 9004:9000 --address 0.0.0.0    
