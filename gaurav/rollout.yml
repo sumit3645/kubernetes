@@ -1,0 +1,32 @@
+create a normal deployment
+---------------------------------------------------------------------------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      type: app
+  template:
+    metadata:
+      labels:
+        type: app
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+-------------------------------------------------------------------------------------------------------------
+kubectl describe deployment nginx-deployment
+the default StrategyType is RollingUpdate
+change the image from 
+ {image: nginx:1.14.2 > image: nginx:1.14.2:va}
+kubectl apply -f abc.yml
+kubectl rollout history deployment nginx-deployment   ......to check rollout history
+    { deployment.apps/nginx-deployment
+      REVISION  CHANGE-CAUSE
+      1         <none>
+      2         <none>} 8.055
