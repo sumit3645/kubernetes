@@ -26,7 +26,12 @@ change the image from
  {image: nginx:1.14.2 > image: nginx:1.14.2:va}
 kubectl apply -f abc.yml
 kubectl rollout history deployment nginx-deployment   ......to check rollout history
+-------------------------------------------------------------------------------------------------------------
     { deployment.apps/nginx-deployment
       REVISION  CHANGE-CAUSE
       1         <none>
-      2         <none>} 8.055
+      2         <none>} 
+-------------------------------------------------------------------------------------------------------------
+now you don't want <none> at CHANGE-CAUSE for that 
+kubectl apply -f abc.yml --record
+
