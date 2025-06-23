@@ -1,0 +1,42 @@
+#vi abc.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod1
+  labels:
+     env: testing
+     type: app
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    resources:
+      requests:
+        memory: 200Mi
+        cpu: 100m
+#####################################################################################################
+ $ kubectl apply -f abc.yml
+ $ kubectl describe pod pod1 ....{you will get your resources information}
+ $ kubectl delete pod pod1
+ ******************************************************************************************************
+ suppose you have created 1 masternode of 1gb and 2 workernode of 1gb each
+ now you have created a pod(above pod) having resources of 1mb 
+ now login to that worker node where your pod is running
+ docker ps && docker container stats <container_ID>
+CONTAINER ID   NAME                                                            CPU %     MEM USAGE / LIMIT   MEM %     NET I/O   BLOCK I/O    PIDS
+9a66a4a962a4   k8s_nginx_pod1_default_57d32a43-9fc4-4317-aa75-a339eedf56a9_0   0.00%     1.84MiB / 3.82GiB   0.05%     0B / 0B   0B / 4.1kB   2
+
+ free -m             ....{to check memory and memory utilization of pod}
+ you have defined 1mb resourse for that pod but it can use upto 1gb(becouse worker has 1gb of memory) 
+ now you want your pod should use defined memory(limit) it shouldn't use all worker host memory,
+ how to limit that? 
+ resources:
+      requests:
+        memory: 1Mi
+      limits:
+        memory: 200Mi
+CONTAINER ID   NAME                                                            CPU %     MEM USAGE / LIMIT   MEM %     NET I/O   BLOCK I/O    PIDS
+6358c1083fcf   k8s_nginx_pod2_default_34adcbd7-00f4-422c-b97b-a15bc09d09c9_0   0.00%     1.855MiB / 200MiB   0.93%     0B / 0B   0B / 4.1kB   2       
+ 
+ 
+ ******************************************************************************************************
