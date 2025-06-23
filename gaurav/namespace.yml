@@ -23,3 +23,22 @@ spec:
   - name: nginx
     image: nginx:1.14.2
 -----------------------------------------------------------------------------------------------------------------------
+kubectl get ns
+    NAME              STATUS   AGE
+    default           Active   3h36m
+    kube-node-lease   Active   3h36m
+    kube-public       Active   3h36m
+    kube-system       Active   3h36m
+    test              Active   115m
+-----------------------------------------------------------------------------------------------------------------------   
+kubectl get pod -n kube-system ...{all these pods will ensure management system of master node}
+    NAME                               READY   STATUS    RESTARTS        AGE
+    coredns-674b8bbfcf-ljdc7           1/1     Running   0               3h36m
+    etcd-minikube                      1/1     Running   0               3h36m  ...{database manage}
+    kube-apiserver-minikube            1/1     Running   0               3h36m
+    kube-controller-manager-minikube   1/1     Running   0               3h36m
+    kube-proxy-q2825                   1/1     Running   0               3h36m  ...{networking manage}
+    kube-scheduler-minikube            1/1     Running   0               3h36m  ...{scheduling of pod}
+    storage-provisioner                1/1     Running   1 (3h35m ago)   3h36m
+-----------------------------------------------------------------------------------------------------------------------
+kubectl config set-context --current --namespace=test ....{to make test namespace as default namespace}    
