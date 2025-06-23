@@ -1,0 +1,25 @@
+-kubectl create ns test    .....{create a namespace of name test}
+-create a pod 
+-kubectl apply -f abc.yml --namespace test  ...{a pod is created in test namespace}
+-if you run $ kubectl get pod command you would not get your pod as your pod is running on test namespace but
+,default namespace of kubenetes id default . 
+
+-kubectl get pod -n test  ...{to get your pod}
+
+-kubectl get pod --all-namespaces ...{to check all pods running on which namespaces}
+-kubectl delete pod pod2 -n test  ...{to delete pod running on test ns} 
+
+-----------------------------------------------------------------------------------------------------------------------
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod2
+  namespace: test   ........{provide ns in yml file}
+  labels:
+     env: testing
+     type: app
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+-----------------------------------------------------------------------------------------------------------------------
